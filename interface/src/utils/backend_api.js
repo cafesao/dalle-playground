@@ -6,16 +6,16 @@ export async function callDalleService(backendUrl, text, numImages) {
     const queryStartTime = new Date()
     const response = await Promise.race([
         (await fetch(backendUrl + `/dalle`, {
-                method: 'POST',
-                headers: {
-                    'Bypass-Tunnel-Reminder': "go",
-                    'mode': 'no-cors'
-                },
-                body: JSON.stringify({
-                    text,
-                    'num_images': numImages,
-                })
-            }
+            method: 'POST',
+            headers: {
+                'Bypass-Tunnel-Reminder': "go",
+                'mode': 'no-cors'
+            },
+            body: JSON.stringify({
+                text,
+                'num_images': numImages,
+            })
+        }
         ).then((response) => {
             if (!response.ok) {
                 throw Error(response.statusText);

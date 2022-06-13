@@ -1,15 +1,15 @@
-FROM node:lts-slim
+FROM node:16 as build
 
-EXPOSE 3000
+WORKDIR /app
 
-COPY package.json /code/package.json
+COPY package.json ./
 
-COPY package-lock.json /code/package-lock.json
+COPY . .
 
-WORKDIR /code
+RUN yarn
 
-COPY . /code
+RUN yarn build
 
-RUN npm install
-
-CMD npm start
+FROM nginx
+COPY --from=build app/dist /usr/share/nginx/html
+COPY nginx.conf /etc/nginx/conf.d/default.conf

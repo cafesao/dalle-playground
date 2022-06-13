@@ -26,7 +26,7 @@ services:
       context: ./interface
       dockerfile: Dockerfile
     restart: always
+    logging:
+      driver: none
     ports:
-      - 3000:3000
-    stdin_open: true
-    tty: true
+      - 3000:80
